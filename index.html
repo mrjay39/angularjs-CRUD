@@ -22,6 +22,17 @@
       <span class="clearfix"></span>
       <hr>
 
+      <form class="navbar-form navbar-left">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" ng-model="searchUser">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
       <div class="alert alert-success text-center" ng-if="message">
         <a href="#" class="close" aria-label="close" ng-click="clearMessage()">&times;</a>
         <strong>{{message}}</strong>
@@ -40,7 +51,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="user in users">
+          <tr ng-repeat="user in users | filter: searchUser">
             <td>{{$index+1}}</td>
             <td>{{user.username}}</td>
             <td>{{user.firstName}}</td>
