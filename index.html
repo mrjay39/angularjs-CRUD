@@ -12,6 +12,7 @@
       tr>td:nth-of-type(5), tr>td:nth-of-type(6){
         width: 30px;
       }
+      th{cursor: pointer;}
     </style>
   </head>
   <body ng-app="myApp" ng-controller="myController">
@@ -21,6 +22,11 @@
       <h2>Manage Users</h2>
       <span class="clearfix"></span>
       <hr>
+
+      <div class="alert alert-success text-center" ng-if="message">
+        <a href="#" class="close" aria-label="close" ng-click="clearMessage()">&times;</a>
+        <strong>{{message}}</strong>
+      </div>
 
       <form class="navbar-form navbar-left">
         <div class="input-group">
@@ -33,25 +39,26 @@
         </div>
       </form>
 
-      <div class="alert alert-success text-center" ng-if="message">
-        <a href="#" class="close" aria-label="close" ng-click="clearMessage()">&times;</a>
-        <strong>{{message}}</strong>
-      </div>
-
       <table class="table table-striped">
         <thead>
           <tr>
             <th>User ID</th>
-            <th>Username</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
+            <th ng-click="sortData('username')">Username
+              <i ng-class="getSortClass('username')"></i>
+            </th>
+            <th ng-click="sortData('firstName')">Firstname
+              <i ng-class="getSortClass('firstName')"></i>
+            </th>
+            <th ng-click="sortData('lastName')">Lastname
+              <i ng-class="getSortClass('lastName')"></i>
+            </th>
             <th>Email</th>
             <th>&nbsp;</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="user in users | filter: searchUser">
+          <tr ng-repeat="user in users | filter: searchUser | orderBy: sortColumn:reverseSort">
             <td>{{$index+1}}</td>
             <td>{{user.username}}</td>
             <td>{{user.firstName}}</td>

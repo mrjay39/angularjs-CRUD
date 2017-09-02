@@ -7,6 +7,23 @@ myApp.controller("myController", function($scope){
     {username: "eblade", firstName: "Eric", lastName: "Blade", email: "ericBlade@gmail.com"}
   ];
 
+  // Sorting column
+  $scope.sortColumn = "users";
+  $scope.reverseSort = false;
+  $scope.sortData = function(column){
+    $scope.reverseSort = ($scope.sortColumn == column) ? !$scope.reverseSort : false;
+    $scope.sortColumn = column;
+  };
+
+  // Arrow Up and Down for sortColumn
+  $scope.getSortClass = function(column){
+    if($scope.sortColumn == column){
+      return $scope.reverseSort ? "glyphicon glyphicon-arrow-down" : "glyphicon glyphicon-arrow-up"
+    }
+    return '';
+  };
+
+
   // for message alert
   $scope.message = "";
   $scope.clearMessage = function(){
